@@ -13,7 +13,7 @@ There are 4 files, including checkouts.csv, libraries.csv, books.csv, and custom
 - customers.csv has 10 columns: id, name, street_address, city, state, zipcode, birth_date, gender, education, and occupation.
 
 ## Data Analysis
-### Each step in the analysis is also numbered in the Python script accordingly.
+#### Each step in the analysis is also numbered in the Python script accordingly.
 ### 1. Investigate data composition and percentage of missing values in each file to decide what attributes are useful. 
 There are 3 categories of factors: geographical factors, human factors, and book factors. 
 - Geographical factors: distance between home and the library. Customers may not pass by the library on their routine trips if they live away from it and tend to return books late.
