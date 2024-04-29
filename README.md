@@ -23,4 +23,4 @@ There are 3 categories of factors: geographical factors, human factors, and book
 If the majority of the data is missing, then it's not suitable to consider as a factor since the results may be misleading. Here, I only analyzed the attributes/factors that are missing less than 10% of data.
 ### 2. Find the data with a reasonable timeline
 #### 2.1 Remove the data with missing checkout or return dates because we won't be able to judge whether the books are returned on time.
-```
+
