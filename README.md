@@ -51,12 +51,17 @@ The overall rate of late returns from all the libraries is 15.22 %.
 The factors with larger weights/coefficients, no matter positive or negative values, are the influential factors of late returns.
 If the factor is positive, it represents that under the condition of this factor happening, the chance of late return increases.
 If it's negative, then under the condition of the factor, the chance of late return decreases.
+### 10. Predict whether the book will be returned late using the logistic regression model
+The logistic model can predict the testing set with the results of 0.81 as accuracy, 0.3 as F1-score, 0.71 as precision, and 0.19 as recall.
+
+## Results Explanation
 Based on the results, the top 10 influential factors with positive (+) and negative (-) relationships to late returns are listed as follows:
 - Geographical factor: distance (+). Customers live in a longer distance from the libraries tend to return books late.
-- Behavioural factors: 
-  -- Education level: college degree (-) and graduate degree(+).
-  -- Occupation: business & finance (+), tech (+), admin & support (-) and education & health (-).
-- Book-realted factors: book price(+), pages(+), and new book (+).
+- Behavioural factors:  
+  Education level: college degree (-) and graduate degree(+).  
+  Occupation: business & finance (+), tech (+), admin & support (-) and education & health (-).  
+- Book-realted factors: book price(+), pages(+), and new book (+). Books with a higher price, more pages, and a closer release date tend to be returned late. 
+  Maybe customers need more time to finish the book with more pages. Newer books may be very popular that friends or family of the customers also want to read and tend to be returned late.
 
 
 
