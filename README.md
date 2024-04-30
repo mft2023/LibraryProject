@@ -20,7 +20,12 @@ There are 3 categories of factors: geographical, behavioral, and book-related fa
 - Geographical factors: distance between home and the library. Customers may not pass by the library on their routine trips if they live away from it and tend to return books late.
 - Behavioral factors: age, gender, education level, and occupation.
 - Book-related factors: new book, price, and pages. Newly released books may be very popular among customers' family and friends. Other people may borrow books from the customers. More pages in a book may require more time to finish. These are potential factors for returning books late.
-- 
+
+## Install required Python packages
+```
+pip install -r requirements.txt
+```
+
 ## Data Cleaning
 
 ## Data Analysis
