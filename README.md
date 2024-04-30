@@ -7,20 +7,49 @@ The libraries in Oregon provide their data to find possible factors of returning
 ## Data format and attributes
 There are 4 files, including checkouts.csv, libraries.csv, books.csv, and customers.csv.
 - checkouts.csv has 5 columns: id, patron_id, library_id, date_checkout, and date_returned. 
-  There are 3 external keys to connect other files: checkouts.id=books.id, checkouts.patron_id=customers.id, checkouts.library_id=libraries.id.
 - libraries.csv has 6 columns: id, name, street_address, city, region, and postal_code.
 - books.csv has 8 columns:  id, title, authors, publisher, publishedDate, categories, price, and pages.
 - customers.csv has 10 columns: id, name, street_address, city, state, zipcode, birth_date, gender, education, and occupation.
+- 
+## Analysis Reasoning
+There are 3 categories of factors: geographical, behavioral, and book-related factors. 
+- Geographical factors: distance between home and the library. Customers may not pass by the library on their routine trips if they live away from it and tend to return books late.
+- Behavioral factors: age, gender, education level, and occupation.
+- Book-related factors: new book, price, and pages. Newly released books may be very popular among customers' family and friends. Other people may borrow books from the customers. More pages in a book may require more time to finish. These are potential factors for returning books late.
 
 ## Data Analysis
 #### Each step in the analysis is also numbered in the Python script accordingly.
-### 1. Investigate data composition and percentage of missing values in each file to decide what attributes are useful. 
-There are 3 categories of factors: geographical factors, human factors, and book factors. 
-- Geographical factors: distance between home and the library. Customers may not pass by the library on their routine trips if they live away from it and tend to return books late.
-- Human factors: age, gender, education level, and occupation.
-- Book factors: new book, price, and pages. Newly released books may be very popular among customers' family and friends. Other people may borrow books from the customers. More pages in a book may require more time to finish. These are potential factors for returning books late.
-
+### 1. Load the files and investigate data composition and percentage of missing values in each file to decide what attributes have enough quality for further investigation. 
 If the majority of the data is missing, then it's not suitable to consider as a factor since the results may be misleading. Here, I only analyzed the attributes/factors that are missing less than 10% of data.
-### 2. Find the data with a reasonable timeline
-#### 2.1 Remove the data with missing checkout or return dates because we won't be able to judge whether the books are returned on time.
+### 2. Find the data with a reasonable timeline: Remove the data with missing checkout or return dates because we won't be able to judge whether the books are returned on time.
+### 3. Calculate the rates of late returns in all libraries (as a group) and in each library.
+#### 3.1 Go through each library id and find the checkout and return dates in the checkouts.csv using a for loop. 
+#### 3.2 Analyze the data with a reasonable timeline (return_date>check_out_date).
+If the return_date is after checkout_date, count the num_borrows for the library and total_num_borrow for all the libraries.
+### 4. Data Cleaning for each attribute selected in the analysis reasoning section.
+Data cleaning for the correct format of zipcode, date, publish year, and txt are in the functions created. Please kindly refer to the functions for details.
+#### 4.1 Find the external keys to connect the check_out.csv with the other files. 
+There are 3 external keys to connect other files: checkouts.library_id=libraries.id, checkouts.patron_id=customers.id, and checkouts.id=books.id. 
+Use these connections to find the corresponding library_id, customer_id, and book_id for each checkout.
+#### 4.2 Find and calculate the factors: distance, age, gender, education level, occupation, new book, price, and pages
+- distance: find the zipcodes of the home address of the customer and the library that he/she borrow books from. Calculate the distance between the two zipcodes using [pgeocode library](https://pgeocode.readthedocs.io/en/latest/generated/pgeocode.GeoDistance.html).
+- age: find the customer's birth_date(DOB) and checkout_date and see if it makes sense (check_out_date>DOB), otherwise, set age as nan.
+- new_book_days: find the date of publication and check if the timeline makes sense (check_out_date>pub_date). If so, calculate the days of publication at the checkout date. If missing data or an unreasonable timeline, then set new_book_days as nan. 
+- gender, education level, occupation, price, and pages: find the corresponding location in the data, if any missing data, set the factors as nan.
+### 5. Store those data based on its data type: continuous data or categorical data.
+### 6. Judge whether the book is returned late and assign it to two labels: 0: on-time return and 1: late return.
+If the days after checkout is greater than 28 days, then it is a late return. Count the num_late_return for each library and total_num_late_return for overall rate of late returns.
+
+## Reference
+* [https://pgeocode.readthedocs.io/en/latest/generated/pgeocode.GeoDistance.html]
+
+
+
+
+
+
+
+
+
+
 
