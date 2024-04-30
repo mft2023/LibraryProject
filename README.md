@@ -1,11 +1,11 @@
-# LibraryProject
-This repository is about analyzing some library-related data, finding explainable factors of late book returns, affording suggestions for libraries to avoid late returns, and visualizing results.
+# Library Project
+This repository is about analyzing some library-related data, finding explainable factors of late returns, visualizing results, and giving suggestions to monitor the rate of returns.
 
 ## Background
 The libraries in Oregon provide their data to find possible factors of returning books late, defined as books returned after 28 days of checkout. They would like to pay attention to the factors and find a way to monitor returning rate to prevent late returns. The data they have is described as follows.
 
 ## Data format and attributes
-There are 4 files, including checkouts.csv, libraries.csv, books.csv, and customers.csv.
+There are four files, including checkouts.csv, libraries.csv, books.csv, and customers.csv.
 - checkouts.csv has 5 columns: id, patron_id, library_id, date_checkout, and date_returned. 
 - libraries.csv has 6 columns: id, name, street_address, city, region, and postal_code.
 - books.csv has 8 columns:  id, title, authors, publisher, publishedDate, categories, price, and pages.
@@ -43,7 +43,7 @@ Use these connections to find the corresponding library_id, customer_id, and boo
 - distance: find the zipcodes of the home address of the customer and the library that he/she borrow books from. Calculate the distance between the two zipcodes using a Python library: pgeocode*.
 - age: find the customer's birth_date(DOB) and checkout_date and see if it makes sense (check_out_date>DOB), otherwise, set age as nan.
 - new_book_days: find the date of publication and check if the timeline makes sense (check_out_date>pub_date). If so, calculate the days of publication at the checkout date. If missing data or an unreasonable timeline, then set new_book_days as nan. 
-- gender, education level, occupation, price, and pages: find the corresponding location in the data, if any missing data, set the factors as nan.
+- the other factors: find the corresponding location in the data, if any missing data, set the factors as nan.
 
 #### 5. Store those data based on its data type: continuous data or categorical data.
 
