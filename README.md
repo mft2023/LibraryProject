@@ -53,6 +53,7 @@ If the factor is positive, it represents that under the condition of this factor
 If it's negative, then under the condition of the factor, the chance of late return decreases.
 ### 10. Predict whether the book will be returned late using the logistic regression model
 The logistic model can predict the testing set with the results of 0.81 as accuracy, 0.3 as F1-score, 0.71 as precision, and 0.19 as recall.
+[recommendation of how to fine-tune the model]
 
 ## Results Explanation
 Based on the results, the top 10 influential factors with positive (+) and negative (-) relationships to late returns are listed as follows:
@@ -63,10 +64,18 @@ Based on the results, the top 10 influential factors with positive (+) and negat
 - Book-realted factors: book price(+), pages(+), and new book (+). Books with a higher price, more pages, and a closer release date tend to be returned late. 
   Maybe customers need more time to finish the book with more pages. Newer books may be very popular that friends or family of the customers also want to read and tend to be returned late.
 
-
+## Suggestion for the libraries
+1. Build an email reminder system to remind the customers of the date of return automatically.
+2. Extend the borrowing policy for customers who live away from libraries and those who borrow thick books.
+3. Set up book return boxes around the cities to make returning books easier for customers who live away from libraries.
+4. Set up a system where customers can submit a request for extending the borrowing period.
+   In this way, the libraries can know whether customers need more time to finish the book or simply forget to return it.
+   If many customers request an extension, the libraries can extend the days in the borrowing policy accordingly.
+6. The libraries can set up a reading area that allows customers to read new books on-site only. After a period of time, when these books are not so popular, they can be checked out. In this way, it avoids late returns and many customers can enjoy reading time in the libraries.
+7. Use the logistic regression model to find which customers may tend to return books late and make customized reminder calls.
 
 ## Reference
-* [https://pgeocode.readthedocs.io/en/latest/generated/pgeocode.GeoDistance.html]
+* [pgeocode library](https://pgeocode.readthedocs.io/en/latest/generated/pgeocode.GeoDistance.html)
 
 
 
