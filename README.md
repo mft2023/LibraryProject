@@ -5,11 +5,11 @@ This repository is about analyzing some library-related data, finding explainabl
 The libraries in Oregon provide their data to find possible factors of returning books late, defined as books returned after 28 days of checkout. They would like to pay attention to the factors and find a way to monitor returning rate to prevent late returns. The data they have is described as follows.
 
 ## Data format and attributes
-There are four files, including checkouts.csv, libraries.csv, books.csv, and customers.csv.
-- checkouts.csv has 5 columns: id, patron_id, library_id, date_checkout, and date_returned. 
-- libraries.csv has 6 columns: id, name, street_address, city, region, and postal_code.
-- books.csv has 8 columns:  id, title, authors, publisher, publishedDate, categories, price, and pages.
-- customers.csv has 10 columns: id, name, street_address, city, state, zipcode, birth_date, gender, education, and occupation.
+There are four files, including checkouts.csv, libraries.csv, books.csv, and customers.csv. Attributes of each file is listed.
+- checkouts.csv: id, patron_id, library_id, date_checkout, and date_returned. 
+- libraries.csv: id, name, street_address, city, region, and postal_code.
+- books.csv: id, title, authors, publisher, publishedDate, categories, price, and pages.
+- customers.csv: id, name, street_address, city, state, zipcode, birth_date, gender, education, and occupation.
 
 ## Analysis Reasoning
 ### Model Selection
@@ -19,7 +19,7 @@ The coefficients of features/factors in the model represent the probability of l
 There are 3 categories of factors: geographical, behavioral, and book-related factors. 
 - Geographical factors: distance between home and the library. Customers may not pass by the library on their routine trips if they live away from it and tend to return books late.
 - Behavioral factors: age, gender, education level, and occupation.
-- Book-related factors: new book, price, and pages. Newly released books may be very popular among customers' family and friends. Other people may borrow books from the customers. More pages in a book may require more time to finish. These are potential factors for returning books late.
+- Book-related factors: new book, price, and pages. Newly released books may be very popular among customers' family and friends. Thus, other people may borrow books from the customers. More pages in a book may require more time to finish. These are potential factors for returning books late.
 
 ## Install required Python packages
 ```
@@ -27,6 +27,19 @@ pip install -r requirements.txt
 ```
 
 ## Data Cleaning
+- Date format: `clean_date_format` function (input: string, output: datetime).
+  Dates are written in different formats, the majority are 'YYYY/MM/DD' and 'YYYY-MM-DD'. Thus, this function converts these two formats first.
+  If it cannot convert to datetime successfully, then go over each digit in the string and only keep numbers. 
+  In order to read the date correctly, it should have 8 digits (YYYY, MM, DD). If 8 digits are available, convert to datetime. Otherwise, return nan.
+- Published year format: `clean_published_year` function (input: string, output: datetime).
+  The most common format in publish_date is 'year', here, all the dates are converted into the year. This function converts 'YYYY-MM-DD', 'YYYY-MM', and 'YYYY' into years in datetime.
+  If the function cannot convert dates into years, return nan.
+- Text format: `clean_txt ` function (input: string, output: string).
+  This function removes all the extra spaces in the string and makes the string lowercase.
+- Number format: `clean_number` function (input: string, output: float).
+  This function goes over each character and only keeps '.' and numbers.
+- Zipcode format: `clean_zipcode_format` function (input: string, output: string).
+  This function removes every special character. If the zipcode is consisted of 5 digits, then it's the correct zipcode format, otherwise, return ''.
 
 ## Data Analysis
 Each step in the analysis is also numbered in the Python script accordingly.
