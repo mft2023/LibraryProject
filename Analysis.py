@@ -262,7 +262,8 @@ for factor in rank_factors.keys():
 plt.figure(1)
 plt.barh(weights_factors.columns,weights_factors.loc[0])
 plt.subplots_adjust(left=0.35, right=0.9, top=0.9, bottom=0.1)
-plt.xlabel('Magnitude of Logistic Regression Model Coefficients (Weights)')
+plt.title('Relationship between Each Factor and Late Return')
+plt.xlabel('Magnitude of Logistic Regression Model Coefficients')
 plt.xlim([-1,1])
 plt.show()
 
