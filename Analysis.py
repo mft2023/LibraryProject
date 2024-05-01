@@ -107,7 +107,7 @@ df_customer=pd.read_csv('./customers.csv');
 df_book=pd.read_csv('./books.csv');
 
 print("\n=== Percengate of missing values in each column ===")
-print("\n=== checkouts.csv  ===")
+print("=== checkouts.csv  ===")
 for i in df_check_out.keys():
     num_missing=df_check_out[i].isnull().sum();
     print(i, round((num_missing/len(df_check_out))*100,2),'%');
@@ -242,28 +242,15 @@ X_categorical_encoded = pd.DataFrame(encoder.fit_transform(X_categorical), colum
 X_processed = pd.concat([X_continuous_scaled, X_categorical_encoded], axis=1)
 
 ### 8. Build a logistic regression model
-# Split features and labels into training (80%) and testing (20%) sets and shuffle data (random_state=42)
+# 8.1 Split features and labels into training (80%) and testing (20%) sets and shuffle data (random_state=42)
 X_train, X_test, y_train, y_test = train_test_split(X_processed, labels, test_size=0.2, random_state=42)
 
-# Create a logistic regression model and train it
+# 8.2 Create a logistic regression model and train it
 model=LogisticRegression()
 model.fit(X_train, y_train)
 
-# Predict whether the book will be returned late
-y_pred=model.predict(X_test);
 
-# Evaluation metrics for the model performance
-print("\n=== Results of Logistic Regression Model ===")
-f1=f1_score(y_test, y_pred);
-precision=precision_score(y_test, y_pred);
-recall=recall_score(y_test, y_pred);
-accuracy = accuracy_score(y_test, y_pred);
-print("F1-score: ",round(f1,2));
-print("precision: ",round(precision,2));
-print("recall: ",round(recall,2));
-print("Accuracy:", round(accuracy,2));
-
-# Visualization of the coefficients in the model
+# 8.3 Visualization of the coefficients in the model
 weights_factors=pd.DataFrame(model.coef_,columns=X_processed.columns); 
 # the top 10 factors are:
 print('\n=== Top 10 factors of retruning late ===')
@@ -279,3 +266,14 @@ plt.xlabel('Magnitude of Logistic Regression Model Coefficients (Weights)')
 plt.xlim([-1,1])
 plt.show()
 
+# 8.4 Generate predictions and print the results of model performance
+y_pred=model.predict(X_test);
+print("\n=== Results of Logistic Regression Model ===")
+f1=f1_score(y_test, y_pred);
+precision=precision_score(y_test, y_pred);
+recall=recall_score(y_test, y_pred);
+accuracy = accuracy_score(y_test, y_pred);
+print("Accuracy:", round(accuracy,2));
+print("F1-score: ",round(f1,2));
+print("precision: ",round(precision,2));
+print("recall: ",round(recall,2));
