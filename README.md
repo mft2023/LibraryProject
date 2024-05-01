@@ -60,7 +60,7 @@ Remove the data with missing checkout and return dates in the checkouts.csv beca
 If the return_date is later than the checkout_date, count the total_num_borrow for all the libraries.
 
 #### 4. Data Cleaning for each attribute selected in the analysis reasoning section
-Please kindly refer to the [Data Cleaning](# Data Cleaning) section for details.
+Please kindly refer to the Data Cleaning section for details.
 
 ##### 4.1 Find the corresponding index in the other files
 There are 3 external keys to connect other files: checkouts.library_id=libraries.id, checkouts.patron_id=customers.id, and checkouts.id=books.id.  
