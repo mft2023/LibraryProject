@@ -18,11 +18,11 @@ The coefficients of features/factors in the model represent the probability of l
 ### Potential factors
 There are 3 categories of factors: geographical, behavioral, and book-related factors. 
 - Geographical factors: distance between home and the library.  
-Customers may not pass by the library on their routine trips if they live away from it and tend to return books late.
+  Customers may not pass by the library on their routine trips if they live away from it and tend to return books late.
 - Behavioral factors: age, gender, education level, and occupation.
 - Book-related factors: new book, price, and pages.  
-Newly released books may be very popular among customers' family and friends. Thus, other people may borrow books from the customers.
-More pages in a book may require more time to finish. These are potential factors for returning books late.
+  Newly released books may be very popular among customers' family and friends. Thus, other people may borrow books from the customers.
+  More pages in a book may require more time to finish. These are potential factors for returning books late.
   
 ## Install required Python packages and run analysis
 ```
@@ -72,7 +72,7 @@ Use these connections to find the corresponding library_id, customer_id, and boo
 
 4.2 Find and calculate the factors  
 - distance: find the zipcodes of the home address of the customer and the library that he/she borrow books from. Calculate the distance between the two zipcodes using a Python library: pgeocode <sup>1,2<sup>  .
-- age: find the customer's birth_date and checkout_date. Then, see if the timeline makes sense (check_out_date>DOB), otherwise, set age as nan.
+- age: find the customer's birth_date and checkout_date. Then, see if the timeline makes sense (check_out_date>birth_date), otherwise, set age as nan.
 - new_book_days: find the date of publication and check if the timeline makes sense (check_out_date>pub_date). If so, calculate the days of publication at the checkout date. If missing data or an unreasonable timeline, then set new_book_days as nan. 
 - the other factors: find the corresponding location in the data, if any missing data, set the factors as nan.
 
@@ -142,8 +142,8 @@ There are four ways to improve the recall.
 4. Try other classification models, such as a random forest classifier or neural networks.
 
 ## Reference
-1. [pgeocode](https://pgeocode.readthedocs.io/en/latest/generated/pgeocode.GeoDistance.html)  
-2. An example of calculating the distance between two zipcodes using geocode: [https://stackoverflow.com/questions/67166295/using-pgeocode-in-pandas](https://stackoverflow.com/questions/67166295/using-pgeocode-in-pandas)
+1. Python library pgeocode: [here](https://pgeocode.readthedocs.io/en/latest/generated/pgeocode.GeoDistance.html)  
+2. An example of calculating the distance between two zipcodes using geocode: [here](https://stackoverflow.com/questions/67166295/using-pgeocode-in-pandas)
 
 
 
