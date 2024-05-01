@@ -5,7 +5,7 @@ This repository is about analyzing some library-related data, finding explainabl
 The libraries in Oregon provide their data to find possible factors of returning books late, defined as books returned after 28 days of checkout. They would like to pay attention to the factors and find a way to monitor returning rate to prevent late returns. The data they have is described as follows.
 
 ## Data format and attributes
-There are four files, including checkouts.csv, libraries.csv, books.csv, and customers.csv. Attributes of each file is listed.
+There are four files, including checkouts.csv, libraries.csv, books.csv, and customers.csv. Attributes of each file are listed.
 - checkouts.csv: id, patron_id, library_id, date_checkout, and date_returned. 
 - libraries.csv: id, name, street_address, city, region, and postal_code.
 - books.csv: id, title, authors, publisher, publishedDate, categories, price, and pages.
@@ -55,7 +55,7 @@ Here, I only analyzed the attributes/factors that are missing less than 10% of t
 Remove the data with missing checkout and return dates in the checkouts.csv because we won't be able to judge whether the books are returned on time.  
 
 #### 3. Calculate the rates of late returns
-##### 3.1 Go through each checkout and find the checkout and return dates using a for loop
+##### 3.1 Go through each checkout and find the checkout and return dates using a for-loop
 ##### 3.2 Analyze the data with a reasonable timeline (return_date>check_out_date)
 If the return_date is later than the checkout_date, count the total_num_borrow for all the libraries.
 
@@ -72,8 +72,8 @@ Use these connections to find the corresponding library_id, customer_id, and boo
 - the other factors: find the corresponding location in the data, if any missing data, set the factors as nan.
 
 #### 5. Create lists of factors based on their data types
-`data_continuous`: stores factors of distance, age, new_book_days, price, pages.  
-`data_categorical`: stores factors of gender, education, occupation.  
+`data_continuous`: stores factors of distance, age, new_book_days, price, and pages.  
+`data_categorical`: stores factors of gender, education, and occupation.  
 
 #### 6. Create a list of labels
 Judge whether the book is returned late and assign the checkout to two labels, 0: on-time return and 1: late return.  
