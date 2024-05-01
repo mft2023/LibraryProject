@@ -13,26 +13,29 @@ There are four files, including checkouts.csv, libraries.csv, books.csv, and cus
 
 ## Analysis Reasoning
 ### Model Selection
-In order to explain the analysis results to library stakeholders, I chose an explainable model, a logistic regression model, to classify on-time and late returns.   
+In order to explain the analysis results to library stakeholders, I chose an explainable model, a logistic regression model, to classify on-time and late returns. 
 The coefficients of features/factors in the model represent the probability of late returns, which can explain the relationship between each factor and late return.
 ### Potential factors
 There are 3 categories of factors: geographical, behavioral, and book-related factors. 
-- Geographical factors: distance between home and the library. Customers may not pass by the library on their routine trips if they live away from it and tend to return books late.
+- Geographical factors: distance between home and the library.
+Customers may not pass by the library on their routine trips if they live away from it and tend to return books late.
 - Behavioral factors: age, gender, education level, and occupation.
-- Book-related factors: new book, price, and pages. Newly released books may be very popular among customers' family and friends. Thus, other people may borrow books from the customers. More pages in a book may require more time to finish. These are potential factors for returning books late.
+- Book-related factors: new book, price, and pages.
+Newly released books may be very popular among customers' family and friends. Thus, other people may borrow books from the customers.
+More pages in a book may require more time to finish. These are potential factors for returning books late.
   
-## Install required Python packages
+## Install required Python packages and run analysis
 ```
 pip install -r requirements.txt
+python Analysis.py
 ```
   
 ## Data Cleaning
 Several functions are built to organize the output formats of dates, texts, numbers, and zipcodes.  
-An input from a Dtaframe is either a string or nan. The functions convert strings only, if the input is a nan, then return nan or an empty string ''.  
+An input from a Dtaframe is either a string or nan. The functions convert strings only, if the input is a nan, then return nan or an empty string ''. 
 The data types of input and output in each function are described.  
 - Date format: [`clean_date_format`](https://github.com/mft2023/LibraryProject/blob/b27b4965254068d958ec74700d883622952847ee/Analysis.py#L17) function (input: string, output: datetime or '').  
-  This function tries to convert the string into datetime.  
-  The majority of formats are 'YYYY/MM/DD' and 'YYYY-MM-DD'. Thus, this function converts these two formats first.  
+  This function tries to convert the string into datetime. The majority of formats are 'YYYY/MM/DD' and 'YYYY-MM-DD'. Thus, this function converts these two formats first.  
   If it cannot convert to datetime successfully, then go over each character in the string and only keep numbers.  
   In order to read the date correctly, it should have 8 digits (YYYY, MM, DD). If 8 digits are available, convert to datetime. Otherwise, return an empty string ''.  
 - Published year format: [`clean_published_year`](https://github.com/mft2023/LibraryProject/blob/b27b4965254068d958ec74700d883622952847ee/Analysis.py#L45) function (input: string, output: datetime or '').  
@@ -56,20 +59,20 @@ Remove the data with missing checkout and return dates in the checkouts.csv beca
 
 #### 3. Calculate the rate of late returns
 3.1 Go through each book checkout and find the checkout and return dates using a for-loop  
-3.2 Analyze the data with a reasonable timeline (return_date>check_out_date)  
+3.2 Analyze the data with a reasonable timeline  
 If the return_date is later than the checkout_date, count the total_num_borrow.
 
 #### 4. Data Cleaning for each factor
-Factors are listed in the analysis reasoning section, including distance, age, new_book_days, price, pages, gender, education, and occupation.  
+Factors are listed in the analysis reasoning section, including distance, age, new_book_days, price, pages, gender, education, and occupation. 
 For consistency of the date, text, and zipcode formats, please kindly refer to the [Data Cleaning](https://github.com/mft2023/LibraryProject#data-cleaning) section for details.  
 
 4.1 Find the corresponding index in the other files  
-There are 3 external keys to connect other files: checkouts.library_id=libraries.id, checkouts.patron_id=customers.id, and checkouts.id=books.id.  
+There are 3 external keys to connect other files: checkouts.library_id=libraries.id, checkouts.patron_id=customers.id, and checkouts.id=books.id. 
 Use these connections to find the corresponding library_id, customer_id, and book_id for each checkout.
 
 4.2 Find and calculate the factors  
-- distance: find the zipcodes of the home address of the customer and the library that he/she borrow books from. Calculate the distance between the two zipcodes using a Python library: pgeocode <sup>1,2<sup> .
-- age: find the customer's birth_date(DOB) and checkout_date and see if it makes sense (check_out_date>DOB), otherwise, set age as nan.
+- distance: find the zipcodes of the home address of the customer and the library that he/she borrow books from. Calculate the distance between the two zipcodes using a Python library: pgeocode <sup>1,2<sup>  .
+- age: find the customer's birth_date and checkout_date. Then, see if the timeline makes sense (check_out_date>DOB), otherwise, set age as nan.
 - new_book_days: find the date of publication and check if the timeline makes sense (check_out_date>pub_date). If so, calculate the days of publication at the checkout date. If missing data or an unreasonable timeline, then set new_book_days as nan. 
 - the other factors: find the corresponding location in the data, if any missing data, set the factors as nan.
 
@@ -80,11 +83,10 @@ Use these connections to find the corresponding library_id, customer_id, and boo
 #### 6. Create a list of labels
 Judge whether the book is returned late and assign the checkout to two labels, 0: on-time return and 1: late return.  
 If the return date is greater than 28 days after checkout, then it is a late return. Count the total_num_late_return for late returns.  
-The overall rate of late returns from all the libraries is 19.38 %.
 
 #### 7. Handle missing values and data preprocessing
 - Continuous variables: fill the missing value with mean and normalize each factor using StandardScaler.
-- Categorical variables: fill the missing value with the most frequent category and encode each factor using OneHotEncoder (turn each category into a corresponding number).  
+- Categorical variables: fill the missing value with the most frequent category and encode each factor using OneHotEncoder (turn each category into a corresponding number).
 Combine preprocessed data as features to feed a logistic regression model.
 
 #### 8. Build a logistic regression model
@@ -93,27 +95,29 @@ Combine preprocessed data as features to feed a logistic regression model.
 8.3 Visualization of the coefficients in the model   
 8.4 Generate predictions and print the results of model performance  
 The logistic regression model predicts binary outcomes, 0 means on-time return and 1 means late return.  
+
 ## Results
+The rate of late returns from all the libraries was 19.38 %.  
 ### Explanation of factors
 The factors with larger coefficients, no matter positive or negative values, are the influential factors of late returns.  
 A horizontal barplot is created to visualize the magnitude of the coefficients of each factor.  
-If the factor is positive, it represents that under the condition of this factor happening, the chance of late return increases.  
+If the factor is positive, it represents that under the condition of this factor happening, the chance of late return increases. 
 If it's negative, then under the condition of the factor, the chance of late return decreases.  
   
 Based on the results, the top 10 influential factors with positive (+) and negative (-) relationships to late returns are listed as follows:
 - Geographical factor: distance (+).
-  Customers live in a longer distance from the libraries tend to return books late.
+Customers live in a longer distance from the libraries tend to return books late.
 - Behavioural factors:
-  Gender: male(+), and female (-).
+  - Gender: male(+), and female (-).  
     Men tend to return books late compared to females.  
-  Education level: college (+).
+  - Education level: college (+).  
     Customers with the highest education level in college tend to return books late.  
-  Occupation: blue collar (+), education & health (-), and others (-).
-    Blue-collar customers tend to return books late.
+  - Occupation: blue collar (+), education & health (-), and others (-).  
+    Blue-collar customers tend to return books late.  
     Customers who work in the field of education and health tend to return books on time.
-- Book-realted factors: new book (+), book price(+), pages(+).
+- Book-realted factors: new book (+), book price(+), pages(+).  
     Books with a closer release date, a higher price, and more pages tend to be returned late.  
-    Newer or more expensive books may be very popular among customers and tend to be returned late.
+    Newer or more expensive books may be very popular among customers and tend to be returned late.  
     As for thick books, customers may need more time to finish them.  
 
 ### Suggestions for the client
@@ -130,16 +134,16 @@ Based on the results, the top 10 influential factors with positive (+) and negat
 
 ### Explanation of model performance
 The logistic model can predict the testing set with the results of 0.80 as accuracy, 0.13 as F1-score, 0.62 as precision, and 0.07 as recall.  
-The results had a very low recall, which meant the model tended to predict as 0, which is the majority of data. There are four ways to improve the recall.  
-### Suggestions to improve model performance
+The results had very low F1-score and recall, which meant the model tended to predict as 0, which is the majority of data.  
+There are four ways to improve the recall.  
 1. Collect more data on late returns.  
 2. Add the parameter of class_weights in the model to address late return data. For example, set class_weight="balanced" or customize weights class_weight={0:weight_on_time, 1:weight_late} to help the model learn from the features of late returns better.  
 3. Find more features/factors to train the model.  
 4. Try other classification models, such as a random forest classifier or neural networks.
 
 ## Reference
-<sup>1.<sup>  [pgeocode](https://pgeocode.readthedocs.io/en/latest/generated/pgeocode.GeoDistance.html)  
-<sup>2.<sup>  [An example of calculating distance between two zipcodes using geocode](https://stackoverflow.com/questions/67166295/using-pgeocode-in-pandas)
+1. [pgeocode](https://pgeocode.readthedocs.io/en/latest/generated/pgeocode.GeoDistance.html)  
+2. An example of calculating the distance between two zipcodes using geocode: [https://stackoverflow.com/questions/67166295/using-pgeocode-in-pandas](https://stackoverflow.com/questions/67166295/using-pgeocode-in-pandas)
 
 
 
