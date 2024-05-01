@@ -24,9 +24,13 @@ There are 3 categories of factors: geographical, behavioral, and book-related fa
   Newly released books may be very popular among customers' family and friends. Thus, other people may borrow books from the customers.
   More pages in a book may require more time to finish. These are potential factors for returning books late.
   
-## Install required Python packages and run analysis
+## Installation
+Install required python packages (python 3.10.12):
 ```
 pip install -r requirements.txt
+```
+Run python script:
+```
 python Analysis.py
 ```
   
