@@ -13,14 +13,14 @@ There are four files, including checkouts.csv, libraries.csv, books.csv, and cus
 
 ## Analysis Reasoning
 ### Model Selection
-In order to explain the analysis results to library stakeholders, I chose an explainable model, a logistic regression model, to classify on-time and late returns. 
+In order to explain the analysis results to the client, I chose an explainable model, a logistic regression model, to classify on-time and late returns. 
 The coefficients of features/factors in the model represent the probability of late returns, which can explain the relationship between each factor and late return.
 ### Potential factors
 There are 3 categories of factors: geographical, behavioral, and book-related factors. 
-- Geographical factors: distance between home and the library.
+- Geographical factors: distance between home and the library.  
 Customers may not pass by the library on their routine trips if they live away from it and tend to return books late.
 - Behavioral factors: age, gender, education level, and occupation.
-- Book-related factors: new book, price, and pages.
+- Book-related factors: new book, price, and pages.  
 Newly released books may be very popular among customers' family and friends. Thus, other people may borrow books from the customers.
 More pages in a book may require more time to finish. These are potential factors for returning books late.
   
