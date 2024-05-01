@@ -27,19 +27,25 @@ pip install -r requirements.txt
 ```
 
 ## Data Cleaning
-- Date format: `clean_date_format` function (input: string, output: datetime).
-  Dates are written in different formats, the majority are 'YYYY/MM/DD' and 'YYYY-MM-DD'. Thus, this function converts these two formats first.
+- Date format: `clean_date_format` function (input: string, output: datetime or '').
+  An input of date is either a string or nan. If it's not a string, then return an empty string ''.
+  If the input is a string, this function tries to convert the string into datetime.
+  The majority of formats are 'YYYY/MM/DD' and 'YYYY-MM-DD'. Thus, this function converts these two formats first.
   If it cannot convert to datetime successfully, then go over each digit in the string and only keep numbers. 
-  In order to read the date correctly, it should have 8 digits (YYYY, MM, DD). If 8 digits are available, convert to datetime. Otherwise, return nan.
-- Published year format: `clean_published_year` function (input: string, output: datetime).
-  The most common format in publish_date is 'year', here, all the dates are converted into the year. This function converts 'YYYY-MM-DD', 'YYYY-MM', and 'YYYY' into years in datetime.
-  If the function cannot convert dates into years, return nan.
+  In order to read the date correctly, it should have 8 digits (YYYY, MM, DD). If 8 digits are available, convert to datetime. Otherwise, return an empty string ''.
+- Published year format: `clean_published_year` function (input: string, output: datetime or '').
+  An input of publishedDate is either a string or nan. If it's not a string, then return an empty string ''.
+  If the input is a string, this function tries to convert the string into years in datetime.
+  If the function cannot convert dates into years, return an empty string ''.
 - Text format: `clean_txt ` function (input: string, output: string).
-  This function removes all the extra spaces in the string and makes the string lowercase.
+  An input is either a string or nan. If it's not a string, then return a nan.
+  Id the input is a string, remove all the extra spaces in the string and make the string lowercase.
 - Number format: `clean_number` function (input: string, output: float).
-  This function goes over each character and only keeps '.' and numbers.
+  An input is either a string or nan. If it's not a string, then return a nan.
+  If the input is a string, then go over each character and only keep '.' and numbers.
 - Zipcode format: `clean_zipcode_format` function (input: string, output: string).
-  This function removes every special character. If the zipcode is consisted of 5 digits, then it's the correct zipcode format, otherwise, return ''.
+  An input of zipcodes is either a string or nan. If it's not a string, then return an empty string ''.
+  If the input is a string, then remove every special character in the string. If the output consists of 5 digits, then it's the correct zipcode format, otherwise, return ''.
 
 ## Data Analysis
 Each step in the analysis is also numbered in the Python script accordingly.
