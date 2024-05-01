@@ -16,10 +16,10 @@ There are four files, including checkouts.csv, libraries.csv, books.csv, and cus
 In order to explain the analysis results to the client, I chose an explainable model, a logistic regression model, to classify on-time and late returns. 
 The coefficients of features/factors in the model represent the probability of late returns, which can explain the relationship between each factor and late return.
 ### Potential factors
-There are 3 categories of factors: geographical, behavioral, and book-related factors. 
+There are 3 categories of factors: geographical, demographic, and book-related factors. 
 - Geographical factors: distance between home and the library.  
   Customers may not pass by the library on their routine trips if they live away from it and tend to return books late.
-- Behavioral factors: age, gender, education level, and occupation.
+- Demographic factors: age, gender, education level, and occupation.
 - Book-related factors: new book, price, and pages.  
   Newly released books may be very popular among customers' family and friends. Thus, other people may borrow books from the customers.
   More pages in a book may require more time to finish. These are potential factors for returning books late.
@@ -97,10 +97,12 @@ Combine preprocessed data as features to feed a logistic regression model.
 8.1 Split features and labels into training (80%) and testing (20%) sets and shuffle data (random_state=42).  
 8.2 Create a logistic regression model and train it.  
 8.3 Visualization of the coefficients in the model   
+![Relationship between factors and late return](https://github.com/mft2023/LibraryProject/blob/main/Factors.png)  
 8.4 Generate predictions and print the results of model performance  
 The logistic regression model predicts binary outcomes, 0 means on-time return and 1 means late return.  
 
 ## Results
+### Rate of late returns
 The rate of late returns from all the libraries was 19.38 %.  
 ### Explanation of factors
 The factors with larger coefficients, no matter positive or negative values, are the influential factors of late returns.  
@@ -111,7 +113,7 @@ If it's negative, then under the condition of the factor, the chance of late ret
 Based on the results, the top 10 influential factors with positive (+) and negative (-) relationships to late returns are listed as follows:
 - Geographical factor: distance (+).
 Customers live in a longer distance from the libraries tend to return books late.
-- Behavioural factors:
+- Demographic factors:
   - Gender: male(+), and female (-).  
     Men tend to return books late compared to females.  
   - Education level: college (+).  
@@ -121,9 +123,14 @@ Customers live in a longer distance from the libraries tend to return books late
     Customers who work in the field of education and health tend to return books on time.
 - Book-realted factors: new book (+), book price(+), pages(+).  
     Books with a closer release date, a higher price, and more pages tend to be returned late.  
-    Newer or more expensive books may be very popular among customers and tend to be returned late.  
-    As for thick books, customers may need more time to finish them.  
-
+### Storytelling
+Except for the demographic factors, which clients cannot control, there are four reasons that cause late returns.  
+First, it is not convenient for customers living away from libraries to return books.  
+Second, newer books are popular that customers' friends or family may also want to read, which causes late returns.  
+Third, customers cannot finish a thick book within 28 days.  
+Last, more expensive books have a higher chance of being returned late is an interesting finding.  
+This factor may be caused by a potential correlation between book pages and price. A thinker book may have a higher price.  
+So, I have a few suggestions for the client to avoid late returns by increasing the convenience of returning books and revising the policy for new and expensive books.
 ### Suggestions for the client
 1. Build an email reminder system to remind the customers of the date of return automatically.
 2. Extend the borrowing policy for customers who live away from libraries.
