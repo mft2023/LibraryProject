@@ -28,12 +28,13 @@ There are 3 categories of factors: geographical, demographic, and book-related f
 1. Clone this repository:
 ```
 git clone https://github.com/mft2023/LibraryProject.git
+cd LibraryProject
 ```
 2. Install required python packages (Python version 3.10.12):
 ```
 pip install -r requirements.txt
 ```
-3. Copy the CSV files to the repository.  
+3. Copy the CSV files to the LibraryProject folder.  
 4. Run python script:
 ```
 python Analysis.py
