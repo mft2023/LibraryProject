@@ -249,8 +249,19 @@ X_train, X_test, y_train, y_test = train_test_split(X_processed, labels, test_si
 model=LogisticRegression()
 model.fit(X_train, y_train)
 
+# 8.3 Generate predictions and print the results of model performance
+y_pred=model.predict(X_test);
+print("\n=== Results of Logistic Regression Model ===")
+f1=f1_score(y_test, y_pred);
+precision=precision_score(y_test, y_pred);
+recall=recall_score(y_test, y_pred);
+accuracy = accuracy_score(y_test, y_pred);
+print("Accuracy:", round(accuracy,2));
+print("F1-score: ",round(f1,2));
+print("precision: ",round(precision,2));
+print("recall: ",round(recall,2));
 
-# 8.3 Visualization of the coefficients in the model
+# 8.4 Visualization of the coefficients in the model
 weights_factors=pd.DataFrame(model.coef_,columns=X_processed.columns); 
 # the top 10 factors are:
 print('\n=== Top 10 factors of retruning late ===')
@@ -266,15 +277,3 @@ plt.title('Relationship between Each Factor and Late Return')
 plt.xlabel('Magnitude of Logistic Regression Model Coefficients')
 plt.xlim([-1,1])
 plt.show()
-
-# 8.4 Generate predictions and print the results of model performance
-y_pred=model.predict(X_test);
-print("\n=== Results of Logistic Regression Model ===")
-f1=f1_score(y_test, y_pred);
-precision=precision_score(y_test, y_pred);
-recall=recall_score(y_test, y_pred);
-accuracy = accuracy_score(y_test, y_pred);
-print("Accuracy:", round(accuracy,2));
-print("F1-score: ",round(f1,2));
-print("precision: ",round(precision,2));
-print("recall: ",round(recall,2));
