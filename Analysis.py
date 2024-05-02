@@ -30,7 +30,7 @@ def clean_date_format(input_date):
                         try: 
                             if type(int(input_date[i]))==int:
                                 nums+=input_date[i];         
-                        except: # skip any other chracters that are not numbers
+                        except: # skip any other characters that are not numbers
                             continue
                     if len(nums)==8: # exact 8 numbers for YYYY, MM, DD, make the date into YYYY-MM-DD format and convert to datetime
                         ans = datetime.strptime(nums[:4]+'-'+nums[4:6]+'-'+nums[6:8], "%Y-%m-%d");
@@ -77,7 +77,7 @@ def clean_number(number):
                     nums+=number[i];
                 elif type(int(number[i]))==int:
                     nums+=number[i];
-            except: # skip any other chracters that are not numbers
+            except: # skip any other characters that are not numbers
                 continue
         return float(nums)
     else:
@@ -91,7 +91,7 @@ def clean_zipcode_format(zipcode):
                 try: 
                     int(zipcode[i]);
                     nums+=zipcode[i];    
-                except: # skip any other chracters that are not numbers
+                except: # skip any other characters that are not numbers
                     continue
             if len(nums)==5: # exact 5 numbers zipcode
                 return nums
@@ -100,7 +100,7 @@ def clean_zipcode_format(zipcode):
         else:
             return ''
 
-### 1. Load the files and print percentage of missing values in each file
+### 1. Load the files and print the percentage of missing values in each file
 df_check_out=pd.read_csv('./checkouts.csv');
 df_library=pd.read_csv('./libraries.csv');
 df_customer=pd.read_csv('./customers.csv');
@@ -129,7 +129,7 @@ for i in df_book.keys():
 
 ### 2. Find the data with a reasonable timeline
 df_check_out.dropna(inplace=True)
-df_check_out.reset_index(inplace=True, drop=True)# organize the index to match its length after remove missing value
+df_check_out.reset_index(inplace=True, drop=True)# organize the index to match its length after removing missing values
 
 ### 3. Calculate the rates of late returns
 dist = pgeocode.GeoDistance('US'); 
@@ -158,7 +158,7 @@ for i in range(len(df_check_out)):
             # get library zipcode
             zip_lib=df_library['postal_code'][loc_lib];
             zip_lib=clean_zipcode_format(zip_lib);
-            # get customer zipcode
+            # get customer's zipcode
             zip_customer=df_customer['zipcode'][loc_cus];
             zip_customer=clean_zipcode_format(zip_customer);
             # Get distance (in km) between postal codes
@@ -191,7 +191,7 @@ for i in range(len(df_check_out)):
             pub_date=df_book['publishedDate'][loc_book];
             pub_date=clean_published_year(pub_date);
             if pub_date!='':
-                if check_out_date>pub_date:# resonable timeline
+                if check_out_date>pub_date:# reasonable timeline
                     new_book_days=(check_out_date-pub_date).days;# days after published when checkout
                 else:
                     new_book_days=np.nan
@@ -224,7 +224,7 @@ print("Rate of late return: ", round((total_num_late_return/total_num_borrow)*10
 # Continuous variables
 X_continuous = pd.DataFrame(data_continuous, columns =['distance', 'age', 'new_book_days', 'book_price', 'book_pages']);
 for key in X_continuous.keys():
-    # replace missing value with mean
+    # replace the missing value with mean
     X_continuous[key].fillna(X_continuous[key].mean(), inplace = True);
 
 scaler = StandardScaler();
@@ -233,7 +233,7 @@ X_continuous_scaled = pd.DataFrame(scaler.fit_transform(X_continuous), columns=X
 # Categorical variables
 X_categorical = pd.DataFrame(data_categorical, columns =['gender', 'education', 'occupation']);
 for key in X_categorical.keys():
-    # replace missing value with the most frequent category
+    # replace the missing value with the most frequent category
     X_categorical[key].fillna(X_categorical[key][X_categorical[key].notnull()].mode()[0], inplace = True)
 encoder = OneHotEncoder(sparse_output=False);
 X_categorical_encoded = pd.DataFrame(encoder.fit_transform(X_categorical), columns=encoder.get_feature_names_out())
@@ -261,10 +261,10 @@ print("F1-score: ",round(f1,2));
 print("precision: ",round(precision,2));
 print("recall: ",round(recall,2));
 
-# 8.4 Visualization of the coefficients in the model
+# 8.4 Visualize the magnitudes of the coefficients in the model
 weights_factors=pd.DataFrame(model.coef_,columns=X_processed.columns); 
 # the top 10 factors are:
-print('\n=== Top 10 factors of retruning late ===')
+print('\n=== Top 10 factors of returning late ===')
 rank_factors=abs(weights_factors).rank(axis=1, ascending=False);
 for factor in rank_factors.keys():
     if rank_factors[factor][0]<=10:
