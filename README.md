@@ -103,10 +103,10 @@ Combine the preprocessed data as features to feed a logistic regression model.
 #### 8. Build a logistic regression model
 8.1 Split features and labels into training (80%) and testing (20%) sets and shuffle data (random_state=42).  
 8.2 Create a logistic regression model and train it.  
-8.3 Visualization of the coefficients in the model   
-![Relationship between factors and late return](https://github.com/mft2023/LibraryProject/blob/main/Factors.png)  
-8.4 Generate predictions and print the results of model performance  
+8.3 Generate predictions and print the results of model performance  
 The logistic regression model predicts binary outcomes, 0 means on-time return and 1 means late return.  
+8.4 Visualize the maganitudes of the coefficients in the model   
+![Relationship between factors and late return](https://github.com/mft2023/LibraryProject/blob/main/Factors.png)  
 
 ## Results
 ### Rate of late returns
@@ -129,7 +129,7 @@ Customers live in a longer distance from the libraries tend to return books late
     Blue-collar customers tend to return books late.  
     Customers who work in the field of education and health tend to return books on time.
 - Book-realted factors: new_book_days (+), book price(+), pages(+).  
-    An older book, a book with a higher price, and more pages tends to be returned late.  
+    An older book (more days after published), a book with a higher price, and more pages tends to be returned late.  
 ### Storytelling
 Except for the demographic factors, which the client cannot control, there are four reasons that cause late returns.  
 First, it is not convenient for customers living away from libraries to return books.  
