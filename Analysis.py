@@ -16,30 +16,43 @@ import matplotlib.pyplot as plt
 
 def clean_date_format(input_date):
     if type(input_date)==str:
-        try: # MM/DD/YYYY
-            ans = datetime.strptime(input_date, "%m/%d/%Y");
+        # the dates are separated by special characters, therefore, turn the special characters into '-' if they are not located in the start or end location.
+        nums=str();
+        for i in range(len(input_date)):
+            try:
+                if type(int(input_date[i]))==int:
+                    nums+=input_date[i];                
+            except:
+                if i!=0 and i!=len(input_date)-1: # not starting or ending position
+                    nums+='-'; #seperator
+                else:
+                    continue
+        try: # MM-DD-YYYY
+            ans = datetime.strptime(nums, "%m-%d-%Y");
             return ans
         except:
-            try: # YYYY-MM-DD
-                ans = datetime.strptime(input_date, "%Y-%m-%d");
+            try: # DD-MM-YYYY
+                ans = datetime.strptime(nums, "%d-%m-%Y");  
                 return ans
-            except:# may be missing value or involved special characters
-                try:    
-                    nums=str();
-                    for i in range(len(input_date)):
-                        try: 
-                            if type(int(input_date[i]))==int:
-                                nums+=input_date[i];         
-                        except: # skip any other characters that are not numbers
-                            continue
-                    if len(nums)==8: # exact 8 numbers for YYYY, MM, DD, make the date into YYYY-MM-DD format and convert to datetime
-                        ans = datetime.strptime(nums[:4]+'-'+nums[4:6]+'-'+nums[6:8], "%Y-%m-%d");
-                        return ans
-                    else: # cannot identify as correct date format
-                        return ''
+            except:
+                try: # YYYY-MM-DD
+                    ans = datetime.strptime(nums, "%Y-%m-%d");  
+                    return ans
                 except:
-                    return ''
-    else:
+                    try: # MMDDYYYY
+                        ans = datetime.strptime(nums, "%m%d%Y");  
+                        return ans
+                    except:
+                        try: # DDMMYYYY
+                            ans = datetime.strptime(nums, "%d%m%Y");  
+                            return ans
+                        except:
+                            try: # YYYYMMDD
+                                ans = datetime.strptime(nums, "%Y%m%d");  
+                                return ans
+                            except:
+                                return ''
+    else: # missing value
         return ''
         
 def clean_published_year(published_date):
