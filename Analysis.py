@@ -216,6 +216,9 @@ for i in range(len(df_check_out)):
         except:
             continue
 print("Rate of late return: ", round((total_num_late_return/total_num_borrow)*100,2), " %")
+ontime_perc=sum(labels)/len(labels);
+late_perc=1-ontime_perc;
+print("Dataset composition: on-time returns - ",round(ontime_perc*100,2), "%, late returns - ",round(late_perc*100,2),"%") 
 
 ### 7. Handle missing values and data preprocessing
 # Continuous variables
@@ -243,7 +246,7 @@ X_processed = pd.concat([X_continuous_scaled, X_categorical_encoded], axis=1)
 X_train, X_test, y_train, y_test = train_test_split(X_processed, labels, test_size=0.2, random_state=42)
 
 # 8.2 Create a logistic regression model and train it
-model=LogisticRegression()
+model=LogisticRegression(class_weight={0: late_perc, 1: ontime_perc}) # address to imbalanced classes
 model.fit(X_train, y_train)
 
 # 8.3 Generate predictions and print the results of model performance
