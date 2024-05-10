@@ -153,9 +153,8 @@ The logistic model can predict the testing set with the results of 0.80 as accur
 The results had fair precision but very low recall, which meant too many false negatives (FNs). The model tended to predict as 0, which is the majority of data.  
 There are four ways to improve the recall.  
 1. Collect more data on late returns.  
-2. Add the parameter of class_weights in the model to address late return data. For example, set a class_weight="balanced" or customize a class_weight to help the model learn from the features of late returns better.  
-3. Find more features/factors to train the model.  
-4. Try other classification models, such as a random forest classifier or neural networks.
+2. Find more features/factors to train the model.  
+3. Try other classification models, such as a random forest classifier or neural networks.
 
 ## Reference
 1. Python library pgeocode: [here](https://pgeocode.readthedocs.io/en/latest/generated/pgeocode.GeoDistance.html)  
