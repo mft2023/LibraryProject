@@ -45,10 +45,8 @@ Several functions are built to organize the output formats of dates, texts, numb
 An input from a DataFrame is either a string or nan. The functions convert strings only, if the input is a nan, then return nan or an empty string. 
 The data types of input and output in each function are described.  
 - Date format: [`clean_date_format`](https://github.com/mft2023/LibraryProject/blob/b27b4965254068d958ec74700d883622952847ee/Analysis.py#L17) function (input: string, output: datetime or '').  
-  This function tries to convert the string into datetime.
-  The dates are separated by special characters, therefore, turn the special characters into '-' if they are not located in the start or end location.  
-  Try each date format to convert to datetime. If it cannot convert to datetime successfully, then return empty string.  
-  In order to read the date correctly, it should have 8 digits (YYYY, MM, DD). If 8 digits are available, convert to datetime. Otherwise, return an empty string.  
+  This function tries to convert the string into datetime.  
+  Year, month, and day are separated by special characters, therefore, remove all special characters and convert to datetime. If it cannot convert to datetime successfully, then return empty string.   
 - Published year format: [`clean_published_year`](https://github.com/mft2023/LibraryProject/blob/b27b4965254068d958ec74700d883622952847ee/Analysis.py#L45) function (input: string, output: datetime or '').  
   This function tries to convert the string into years in datetime.  
   If the function cannot convert dates into years, return an empty string.  
