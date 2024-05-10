@@ -214,10 +214,10 @@ for i in range(len(df_check_out)):
                 labels.append(0)# on-time returns
         except:
             continue
-print("Rate of late return: ", round((total_num_late_return/total_num_borrow)*100,2), " %")
-ontime_perc=sum(labels)/len(labels);
-late_perc=1-ontime_perc;
-print("Dataset composition: on-time returns - ",round(ontime_perc*100,2), "%, late returns - ",round(late_perc*100,2),"%") 
+
+late_perc=(total_num_late_return/total_num_borrow);
+ontime_perc=1-late_perc;
+print("Rate of late return: ", round(late_perc*100,2), " %")
 
 ### 7. Handle missing values and data preprocessing
 # Continuous variables
