@@ -16,42 +16,28 @@ import matplotlib.pyplot as plt
 
 def clean_date_format(input_date):
     if type(input_date)==str:
-        # the dates are separated by special characters, therefore, turn the special characters into '-' if they are not located in the start or end location.
+        # The dates are separated by special characters, therefore, remove all the special characters.
         nums=str();
         for i in range(len(input_date)):
             try:
                 if type(int(input_date[i]))==int:
                     nums+=input_date[i];                
             except:
-                if i!=0 and i!=len(input_date)-1: # not starting or ending position
-                    nums+='-'; #seperator
-                else:
                     continue
-        try: # MM-DD-YYYY
-            ans = datetime.strptime(nums, "%m-%d-%Y");
+        try: # MMDDYYYY
+            ans = datetime.strptime(nums, "%m%d%Y");  
             return ans
         except:
-            try: # DD-MM-YYYY
-                ans = datetime.strptime(nums, "%d-%m-%Y");  
+            try: # DDMMYYYY
+                ans = datetime.strptime(nums, "%d%m%Y");  
                 return ans
             except:
-                try: # YYYY-MM-DD
-                    ans = datetime.strptime(nums, "%Y-%m-%d");  
+                try: # YYYYMMDD
+                    ans = datetime.strptime(nums, "%Y%m%d");  
                     return ans
                 except:
-                    try: # MMDDYYYY
-                        ans = datetime.strptime(nums, "%m%d%Y");  
-                        return ans
-                    except:
-                        try: # DDMMYYYY
-                            ans = datetime.strptime(nums, "%d%m%Y");  
-                            return ans
-                        except:
-                            try: # YYYYMMDD
-                                ans = datetime.strptime(nums, "%Y%m%d");  
-                                return ans
-                            except:
-                                return ''
+                    print("Cannot convert: ",input_date)
+                    return ''
     else: # missing value
         return ''
         
