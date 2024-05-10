@@ -107,15 +107,15 @@ df_customer=pd.read_csv('./customers.csv');
 df_book=pd.read_csv('./books.csv');
 
 print("\n=== Percengate of missing values in each column ===")
-print("=== checkouts.csv  ===")
+print("=== checkouts.csv ===")
 missing_values = df_check_out.isnull().sum()
 print(round(missing_values/len(df_check_out)*100,2))
 
-print("\n=== libraries.csv  ===")
+print("\n=== libraries.csv ===")
 missing_values = df_library.isnull().sum()
 print(round(missing_values/len(df_library)*100,2))
     
-print("\n=== customers.csv  ===")
+print("\n=== customers.csv ===")
 missing_values = df_customer.isnull().sum()
 print(round(missing_values/len(df_customer)*100,2))
 
