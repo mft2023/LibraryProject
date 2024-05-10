@@ -108,24 +108,21 @@ df_book=pd.read_csv('./books.csv');
 
 print("\n=== Percengate of missing values in each column ===")
 print("=== checkouts.csv  ===")
-for i in df_check_out.keys():
-    num_missing=df_check_out[i].isnull().sum();
-    print(i, round((num_missing/len(df_check_out))*100,2),'%');
+missing_values = df_check_out.isnull().sum()
+print(round(missing_values/len(df_check_out)*100,2))
 
 print("\n=== libraries.csv  ===")
-for i in df_library.keys():
-    num_missing=df_library[i].isnull().sum();
-    print(i, round((num_missing/len(df_library))*100,2),'%'); 
+missing_values = df_library.isnull().sum()
+print(round(missing_values/len(df_library)*100,2))
     
 print("\n=== customers.csv  ===")
-for i in df_customer.keys():
-    num_missing=df_customer[i].isnull().sum();
-    print(i, round((num_missing/len(df_customer))*100,2),'%');
+missing_values = df_customer.isnull().sum()
+print(round(missing_values/len(df_customer)*100,2))
 
 print("\n=== book.csv ===")
-for i in df_book.keys():
-    num_missing=df_book[i].isnull().sum();    
-    print(i, round((num_missing/len(df_book))*100,2),'%')
+missing_values = df_book.isnull().sum()
+print(round(missing_values/len(df_book)*100,2))
+
 
 ### 2. Find the data with a reasonable timeline
 df_check_out.dropna(inplace=True)
